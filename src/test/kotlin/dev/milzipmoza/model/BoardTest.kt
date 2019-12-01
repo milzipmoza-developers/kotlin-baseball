@@ -1,5 +1,7 @@
 package dev.milzipmoza.model
 
+import dev.milzipmoza.model.exception.IllegalFirstTurnException
+import dev.milzipmoza.model.exception.NotYourTurnException
 import dev.milzipmoza.model.exception.PointLowerBoundException
 import dev.milzipmoza.model.exception.PointUpperBoundException
 import org.assertj.core.api.Assertions.assertThat
@@ -12,6 +14,7 @@ private const val POINT_UNDER_LOWER_BOUND = -1
 private const val POINT_OVER_UPPER_BOUND = 3
 private const val POINT_LOWER_BOUND = 0
 private const val POINT_UPPER_BOUND = 2
+private val START_TURN = Piece.O
 
 internal class BoardTest {
 
@@ -19,7 +22,7 @@ internal class BoardTest {
 
     @BeforeEach
     internal fun setUp() {
-        board = Board()
+        board = Board(START_TURN)
     }
 
     @Test
@@ -88,5 +91,27 @@ internal class BoardTest {
             "[   ][ O ][ X ]\n" +
             "[   ][   ][ O ]"
         )
+    }
+
+    @Test
+    internal fun `첫 턴이 아닌 유저가 먼저 움직이면 NotYourTurnException 이 발생한다`() {
+        assertThrows<NotYourTurnException> {
+            board.putPiece(0, 1, Piece.X)
+        }
+    }
+
+    @Test
+    internal fun `동일한 유저가 연속으로 움직이면 NotYourTurnException 이 발생한다`() {
+        board.putPiece(0, 0, Piece.O)
+        assertThrows<NotYourTurnException> {
+            board.putPiece(0, 1, Piece.O)
+        }
+    }
+
+    @Test
+    internal fun `첫 턴을 EMPTY 로 시작하면 IllegalFirstTurnException 이 발생한다`() {
+        assertThrows<IllegalFirstTurnException> {
+            Board(Piece.EMPTY)
+        }
     }
 }
