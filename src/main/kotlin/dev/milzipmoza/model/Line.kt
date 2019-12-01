@@ -24,7 +24,7 @@ class Line {
         return line[point] put piece
     }
 
-    fun symbolize(): String = line.asSequence().joinToString(JOINING_DELIMITER) { it.symbolize() }
+    fun symbolize() = line.asSequence().joinToString(JOINING_DELIMITER) { it.symbolize() }
 
     private fun checkLowerBound(point: Int) {
         if (point < POINT_LOWER_BOUND) {
