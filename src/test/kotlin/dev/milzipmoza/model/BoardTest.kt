@@ -23,40 +23,70 @@ internal class BoardTest {
     }
 
     @Test
-    internal fun `틱택토 게임을 진행하기 위한 Board 를 생성한다` () {
+    internal fun `틱택토 게임을 진행하기 위한 Board 를 생성한다`() {
         assertNotNull(board)
     }
 
     @Test
-    internal fun `새로운 Piece 를 성공적으로 배치한다` () {
+    internal fun `새로운 Piece 를 성공적으로 배치한다`() {
         assertThat(board.putPiece(POINT_LOWER_BOUND, POINT_LOWER_BOUND, Piece.O)).isEqualTo(Piece.O)
     }
 
     @Test
-    internal fun `X 가 0 보다 작을 경우 PointLowerBoundException 이 발생한다` () {
+    internal fun `X 가 0 보다 작을 경우 PointLowerBoundException 이 발생한다`() {
         assertThrows<PointLowerBoundException> {
             board.putPiece(POINT_UNDER_LOWER_BOUND, POINT_LOWER_BOUND, Piece.O)
         }
     }
 
     @Test
-    internal fun `Y 가 0 보다 작을 경우 PointLowerBoundException 이 발생한다` () {
+    internal fun `Y 가 0 보다 작을 경우 PointLowerBoundException 이 발생한다`() {
         assertThrows<PointLowerBoundException> {
             board.putPiece(POINT_LOWER_BOUND, POINT_UNDER_LOWER_BOUND, Piece.O)
         }
     }
 
     @Test
-    internal fun `X 가 2 보다 클 경우 PointUpperBoundException 이 발생한다` () {
+    internal fun `X 가 2 보다 클 경우 PointUpperBoundException 이 발생한다`() {
         assertThrows<PointUpperBoundException> {
             board.putPiece(POINT_OVER_UPPER_BOUND, POINT_UPPER_BOUND, Piece.O)
         }
     }
 
     @Test
-    internal fun `Y 가 2 보다 클 경우 PointUpperBoundException 이 발생한다` () {
+    internal fun `Y 가 2 보다 클 경우 PointUpperBoundException 이 발생한다`() {
         assertThrows<PointUpperBoundException> {
             board.putPiece(POINT_UPPER_BOUND, POINT_OVER_UPPER_BOUND, Piece.O)
         }
+    }
+
+    @Test
+    internal fun `init 된 Board 의 symbolize 메서드 동작을 확인한다`() {
+        val symbolizeBoard = board.symbolize()
+        println(symbolizeBoard)
+
+        assertThat(symbolizeBoard).isEqualTo(
+            "[   ][   ][   ]\n" +
+            "[   ][   ][   ]\n" +
+            "[   ][   ][   ]"
+        )
+    }
+
+    @Test
+    internal fun `변경사항이 있는 Board 의 symbolize 메서드 동작을 확인한다`() {
+        board.putPiece(0, 0, Piece.O)
+        board.putPiece(0, 2, Piece.X)
+        board.putPiece(1, 1, Piece.O)
+        board.putPiece(1, 2, Piece.X)
+        board.putPiece(2, 2, Piece.O)
+
+        val symbolizeBoard = board.symbolize()
+        println(symbolizeBoard)
+
+        assertThat(symbolizeBoard).isEqualTo(
+            "[ O ][   ][ X ]\n" +
+            "[   ][ O ][ X ]\n" +
+            "[   ][   ][ O ]"
+        )
     }
 }
