@@ -16,7 +16,7 @@ class Line {
     fun putPiece(point: Int, piece: Piece): Piece {
         checkLowerBound(point)
         checkUpperBound(point)
-        return line[point].putPiece(piece)
+        return line[point] put piece
     }
 
     private fun checkLowerBound(point: Int) {

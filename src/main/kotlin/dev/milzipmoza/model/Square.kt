@@ -6,16 +6,16 @@ class Square {
 
     var piece: Piece = Piece.EMPTY
 
-    fun putPiece(newPiece: Piece): Piece {
-        if (this.piece != Piece.EMPTY) {
-            throw AlreadyOccupiedSquareException()
-        }
-        this.piece = newPiece
+    infix fun put(piece: Piece): Piece {
+        checkSquare()
+        this.piece = piece
         return this.piece
     }
 
-    fun symbolize(): String {
-        return "[ ${piece.symbolize()} ]"
+    private fun checkSquare() {
+        if (this.piece != Piece.EMPTY) {
+            throw AlreadyOccupiedSquareException()
+        }
     }
 
     override fun equals(other: Any?): Boolean {

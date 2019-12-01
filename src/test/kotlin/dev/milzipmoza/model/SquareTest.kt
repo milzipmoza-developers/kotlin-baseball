@@ -28,15 +28,15 @@ internal class SquareTest {
 
     @Test
     internal fun `Square 의 status 가 EMPTY 일 때, 상태를 변경할 수 있다` () {
-        assertThat(square.putPiece(Piece.O)).isEqualTo(Piece.O)
+        assertThat(square put Piece.O).isEqualTo(Piece.O)
     }
 
     @Test
     internal fun `Square 의 status 가 EMPTY 가 아닐 때, 상태를 변경할 수 없다` () {
-        square.putPiece(Piece.O)
+        square put Piece.O
 
         assertThrows<AlreadyOccupiedSquareException> {
-            square.putPiece(Piece.X)
+            square put Piece.X
         }
     }
 
@@ -47,14 +47,14 @@ internal class SquareTest {
 
     @Test
     internal fun `Square 의 status 를 O 로 변경한 후, symbolize 의 동작을 확인한다` () {
-        square.putPiece(Piece.O)
+        square put Piece.O
 
         assertThat(square.symbolize()).isEqualTo("[ O ]")
     }
 
     @Test
     internal fun `Square 의 status 가 X 로 변경한 후, symbolize 의 동작을 확인한다` () {
-        square.putPiece(Piece.X)
+        square put Piece.X
 
         assertThat(square.symbolize()).isEqualTo("[ X ]")
     }
