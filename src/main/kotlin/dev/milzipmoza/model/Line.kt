@@ -3,9 +3,14 @@ package dev.milzipmoza.model
 import dev.milzipmoza.model.exception.PointLowerBoundException
 import dev.milzipmoza.model.exception.PointUpperBoundException
 
+private const val JOINING_DELIMITER = ""
+private const val POINT_LOWER_BOUND = 0
+private const val POINT_UPPER_BOUND = 2
+private const val LINE_SIZE = 3
+
 class Line {
 
-    private val line = Array(3) { Square() }
+    private val line = Array(LINE_SIZE) { Square() }
 
     infix fun at(point: Int): Piece {
         checkLowerBound(point)
@@ -19,14 +24,16 @@ class Line {
         return line[point] put piece
     }
 
+    fun symbolize(): String = line.asSequence().joinToString(JOINING_DELIMITER) { it.symbolize() }
+
     private fun checkLowerBound(point: Int) {
-        if (point < 0) {
+        if (point < POINT_LOWER_BOUND) {
             throw PointLowerBoundException()
         }
     }
 
     private fun checkUpperBound(point: Int) {
-        if (point > 2) {
+        if (point > POINT_UPPER_BOUND) {
             throw PointUpperBoundException()
         }
     }
