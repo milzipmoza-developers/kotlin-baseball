@@ -12,6 +12,8 @@ class Square {
         return this.piece
     }
 
+    fun symbolize() = "[ ${piece.symbolize()} ]"
+
     private fun checkSquare() {
         if (this.piece != Piece.EMPTY) {
             throw AlreadyOccupiedSquareException()
