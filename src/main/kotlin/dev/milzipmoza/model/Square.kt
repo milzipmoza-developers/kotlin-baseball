@@ -14,6 +14,10 @@ class Square {
         return this.piece
     }
 
+    fun symbolize(): String {
+        return "[ ${piece.symbolize()} ]"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

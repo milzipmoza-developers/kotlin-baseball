@@ -39,4 +39,23 @@ internal class SquareTest {
             square.putPiece(Piece.X)
         }
     }
+
+    @Test
+    internal fun `Square 의 status 가 EMPTY 일 때, symbolize 의 동작을 확인한다` () {
+        assertThat(square.symbolize()).isEqualTo("[   ]")
+    }
+
+    @Test
+    internal fun `Square 의 status 를 O 로 변경한 후, symbolize 의 동작을 확인한다` () {
+        square.putPiece(Piece.O)
+
+        assertThat(square.symbolize()).isEqualTo("[ O ]")
+    }
+
+    @Test
+    internal fun `Square 의 status 가 X 로 변경한 후, symbolize 의 동작을 확인한다` () {
+        square.putPiece(Piece.X)
+
+        assertThat(square.symbolize()).isEqualTo("[ X ]")
+    }
 }
