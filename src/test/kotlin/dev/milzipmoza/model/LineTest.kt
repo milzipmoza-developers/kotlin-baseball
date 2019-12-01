@@ -18,9 +18,9 @@ internal class LineTest {
 
     @Test
     internal fun `Line 을 성공적으로 생성한다` () {
-        assertThat(line.getPiece(0)).isEqualTo(Piece.EMPTY)
-        assertThat(line.getPiece(1)).isEqualTo(Piece.EMPTY)
-        assertThat(line.getPiece(2)).isEqualTo(Piece.EMPTY)
+        assertThat(line at 0).isEqualTo(Piece.EMPTY)
+        assertThat(line at 1).isEqualTo(Piece.EMPTY)
+        assertThat(line at 2).isEqualTo(Piece.EMPTY)
     }
 
     @Test
@@ -45,14 +45,14 @@ internal class LineTest {
     @Test
     internal fun `0 보다 작은 point 에 get 을 시도하면 PointLowerBoundException 을 발생 시킨다 ` () {
         assertThrows<PointLowerBoundException> {
-            line.getPiece(-1)
+            line at -1
         }
     }
 
     @Test
     internal fun `2 보다 큰 point 에 get 을 시도하면 PointUpperBoundException 을 발생 시킨다 ` () {
         assertThrows<PointUpperBoundException> {
-            line.getPiece(3)
+            line at 3
         }
     }
 }

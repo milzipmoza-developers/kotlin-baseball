@@ -7,7 +7,7 @@ class Line {
 
     private val line = Array(3) { Square() }
 
-    fun getPiece(point: Int): Piece {
+    infix fun at(point: Int): Piece {
         checkLowerBound(point)
         checkUpperBound(point)
         return line[point].piece
