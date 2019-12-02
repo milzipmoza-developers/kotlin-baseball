@@ -1,5 +1,6 @@
 package dev.milzipmoza.model
 
+import dev.milzipmoza.model.exception.NoWinnerAtLineException
 import dev.milzipmoza.model.exception.PointLowerBoundException
 import dev.milzipmoza.model.exception.PointUpperBoundException
 import org.assertj.core.api.Assertions.assertThat
@@ -97,11 +98,41 @@ internal class LineTest {
 
     @Test
     fun `line 에서 모두 같은 모양이 아닌 경우 hasWinner 메서드가 false 를 반환한다` () {
-        // line 이 모두 같은 모양이 아닌
+        // line 이 모두 같은 모양이 아닌 경우
         line.putPiece(FIRST_POINT, Piece.O)
         line.putPiece(SECOND_POINT, Piece.X)
         line.putPiece(THIRD_POINT, Piece.O)
 
         assertThat(line.hasWinner()).isEqualTo(false)
+    }
+
+    @Test
+    fun `line 에서 같은 모양인 경우 winnerPiece 메서드가 해당 Piece 를 반환한다` () {
+        // line 이 모두 같은 모양인 경우
+        line.putPiece(FIRST_POINT, Piece.O)
+        line.putPiece(SECOND_POINT, Piece.O)
+        line.putPiece(THIRD_POINT, Piece.O)
+
+        assertThat(line.winnerPiece()).isEqualTo(Piece.O)
+    }
+
+    @Test
+    fun `line 에서 모두 같은 모양인데 Empty 인 경우 NoWinnerAtLineException 이 발생한다` () {
+        // line 이 모두 같은 모양인데 Piece.EMPTY
+        assertThrows<NoWinnerAtLineException> {
+            line.winnerPiece()
+        }
+    }
+
+    @Test
+    fun `line 에서 모두 같은 모양이 아닌 경우 NoWinnerAtLineException 이 발생한다` () {
+        // line 이 모두 같은 모양이 아닌
+        line.putPiece(FIRST_POINT, Piece.O)
+        line.putPiece(SECOND_POINT, Piece.X)
+        line.putPiece(THIRD_POINT, Piece.O)
+
+        assertThrows<NoWinnerAtLineException> {
+            line.winnerPiece()
+        }
     }
 }

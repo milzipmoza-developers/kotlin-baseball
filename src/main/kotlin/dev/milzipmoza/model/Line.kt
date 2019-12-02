@@ -1,5 +1,6 @@
 package dev.milzipmoza.model
 
+import dev.milzipmoza.model.exception.NoWinnerAtLineException
 import dev.milzipmoza.model.exception.PointLowerBoundException
 import dev.milzipmoza.model.exception.PointUpperBoundException
 import java.util.function.Predicate
@@ -28,6 +29,13 @@ class Line {
     fun hasWinner() = when (line[0]) {
         Square() -> false
         else -> line.count { it == line[0] } == LINE_SIZE
+    }
+
+    fun winnerPiece(): Piece {
+        if (!hasWinner()) {
+            throw NoWinnerAtLineException()
+        }
+        return line[0].piece
     }
 
     fun symbolize() = line.asSequence().joinToString(JOINING_DELIMITER) { it.symbolize() }
