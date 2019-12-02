@@ -32,6 +32,8 @@ class Board(internal var turn: Piece) {
 
     fun symbolize() = board.asSequence().joinToString(JOINING_DELIMITER) { it.symbolize() }
 
+    fun hasWinner() = hasDiagonalWinner() || hasHorizontalWinner() || hasVerticalWinner()
+
     fun hasVerticalWinner() = lowerBoundToUpperBound().anyMatch { isVerticalWinner(it) }
 
     fun hasHorizontalWinner() = board.asSequence().any { it.hasWinner() }
@@ -41,7 +43,7 @@ class Board(internal var turn: Piece) {
     fun isBoardFull() = lowerBoundToUpperBound().allMatch { !board[it].hasEmpty() }
 
     fun getWinner(): Result {
-        if (hasDiagonalWinner() || hasHorizontalWinner() || hasVerticalWinner()) {
+        if (hasWinner()) {
             return Result(turn.nextTurn())
         }
         return Result(null)
