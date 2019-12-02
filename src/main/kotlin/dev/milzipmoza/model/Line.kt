@@ -31,6 +31,8 @@ class Line {
         else -> line.count { it == line[0] } == LINE_SIZE
     }
 
+    fun hasEmpty() = line.asSequence().any { it.isEmpty() }
+
     fun winnerPiece(): Piece {
         if (!hasWinner()) {
             throw NoWinnerAtLineException()

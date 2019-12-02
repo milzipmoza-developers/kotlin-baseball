@@ -171,6 +171,26 @@ internal class BoardTest {
         assertThat(board.hasDiagonalWinner()).isTrue()
     }
 
+    @Test
+    fun `가득 차는 경우 isFull 이 true 를 반환한다` () {
+        makeBoardFull()
+
+        val symbolizeBoard = board.symbolize()
+        println(symbolizeBoard)
+
+        assertThat(board.isBoardFull()).isTrue()
+    }
+
+    @Test
+    fun `가득 차지 않는 경우 isFull 이 false 를 반환한다` () {
+        makeVerticalWinner()
+
+        val symbolizeBoard = board.symbolize()
+        println(symbolizeBoard)
+
+        assertThat(board.isBoardFull()).isFalse()
+    }
+
     private fun makeLeftDiagonalWinner() {
         board.putPiece(0, 0, Piece.O)
         board.putPiece(0, 2, Piece.X)
@@ -218,5 +238,17 @@ internal class BoardTest {
         board.putPiece(1, 1, Piece.O)
         board.putPiece(2, 1, Piece.X)
         board.putPiece(1, 2, Piece.O)
+    }
+
+    private fun makeBoardFull() {
+        board.putPiece(0, 0, Piece.O)
+        board.putPiece(0, 1, Piece.X)
+        board.putPiece(0, 2, Piece.O)
+        board.putPiece(1, 0, Piece.X)
+        board.putPiece(1, 1, Piece.O)
+        board.putPiece(1, 2, Piece.X)
+        board.putPiece(2, 0, Piece.O)
+        board.putPiece(2, 1, Piece.X)
+        board.putPiece(2, 2, Piece.O)
     }
 }

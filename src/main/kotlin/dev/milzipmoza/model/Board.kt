@@ -41,6 +41,10 @@ class Board(internal var turn: Piece) {
             checkRightDiagonal(it) || checkLeftDiagonal(it)
         } && !isMiddleEmpty()
 
+    fun isBoardFull(): Boolean {
+        return lowerBoundToUpperBound().allMatch { !board[it].hasEmpty() }
+    }
+
     private fun lowerBoundToUpperBound() = IntStream.rangeClosed(POINT_LOWER_BOUND, POINT_UPPER_BOUND)
 
     private fun checkRightDiagonal(index: Int) =
