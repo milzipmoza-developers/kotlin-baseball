@@ -14,6 +14,11 @@ class Square {
 
     fun symbolize() = "[ ${piece.symbolize()} ]"
 
+    fun isEmpty() = when (piece) {
+        Piece.EMPTY -> true
+        else -> false
+    }
+
     private fun checkSquare() {
         if (this.piece != Piece.EMPTY) {
             throw AlreadyOccupiedSquareException()

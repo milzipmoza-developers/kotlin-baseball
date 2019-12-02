@@ -58,4 +58,21 @@ internal class SquareTest {
 
         assertThat(square.symbolize()).isEqualTo("[ X ]")
     }
+
+    @Test
+    internal fun `Square isEmpty 메서드가 Piece EMPTY 인 경우 true 를 반환한다` () {
+        assertThat(square.isEmpty()).isTrue()
+    }
+
+    @Test
+    internal fun `Square isEmpty 메서드가 Piece O 인 경우 false 를 반환한다` () {
+        square put Piece.O
+        assertThat(square.isEmpty()).isFalse()
+    }
+
+    @Test
+    internal fun `Square isEmpty 메서드가 Piece X 인 경우 false 를 반환한다` () {
+        square put Piece.X
+        assertThat(square.isEmpty()).isFalse()
+    }
 }
