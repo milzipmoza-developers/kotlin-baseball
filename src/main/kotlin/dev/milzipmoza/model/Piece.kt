@@ -18,6 +18,8 @@ enum class Piece {
         else -> this.name
     }
 
+    fun isEmpty() = this == EMPTY
+
     fun nextTurn(): Piece = when (this) {
         O -> X
         X -> O
