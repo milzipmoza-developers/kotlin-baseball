@@ -36,22 +36,28 @@ class Board(internal var turn: Piece) {
 
     fun hasHorizontalWinner() = board.asSequence().any { it.hasWinner() }
 
-    fun hasDiagonalWinner() =
-        IntStream.rangeClosed(POINT_LOWER_BOUND, POINT_MIDDLE).anyMatch {
-            checkRightDiagonal(it) || checkLeftDiagonal(it)
-        } && !isMiddleEmpty()
+    fun hasDiagonalWinner() = checkDiagonal() && !isMiddleEmpty()
 
-    fun isBoardFull(): Boolean {
-        return lowerBoundToUpperBound().allMatch { !board[it].hasEmpty() }
+    fun isBoardFull() = lowerBoundToUpperBound().allMatch { !board[it].hasEmpty() }
+
+    fun getWinner(): Result {
+        if (hasDiagonalWinner() || hasHorizontalWinner() || hasVerticalWinner()) {
+            return Result(turn.nextTurn())
+        }
+        return Result(null)
     }
 
     private fun lowerBoundToUpperBound() = IntStream.rangeClosed(POINT_LOWER_BOUND, POINT_UPPER_BOUND)
 
-    private fun checkRightDiagonal(index: Int) =
-        board[index] at index == board[index + 1] at index + 1
+    private fun checkDiagonal() = checkRightDiagonal() || checkLeftDiagonal()
 
-    private fun checkLeftDiagonal(index: Int) =
-        board[2 - index] at index == board[index + 1] at 2 - (index + 1)
+    private fun checkRightDiagonal() =
+        board[FIRST_POINT] at FIRST_POINT == board[SECOND_POINT] at SECOND_POINT
+                && board[SECOND_POINT] at SECOND_POINT == board[THIRD_POINT] at THIRD_POINT
+
+    private fun checkLeftDiagonal() =
+        board[FIRST_POINT] at THIRD_POINT == board[SECOND_POINT] at SECOND_POINT
+                && board[SECOND_POINT] at SECOND_POINT == board[THIRD_POINT] at FIRST_POINT
 
     private fun isMiddleEmpty() = (board[SECOND_POINT] at SECOND_POINT).isEmpty()
 
