@@ -7,6 +7,12 @@ private const val EMPTY_SYMBOL = " "
 enum class Piece {
     EMPTY, O, X;
 
+    companion object {
+        fun of(name: String): Piece {
+            return valueOf(name)
+        }
+    }
+
     fun symbolize() = when (EMPTY) {
         this -> EMPTY_SYMBOL
         else -> this.name
