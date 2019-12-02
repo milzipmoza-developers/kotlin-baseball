@@ -20,7 +20,9 @@ class OutputView {
         }
 
         fun printBoard(board: Board) {
+            println()
             println(board.symbolize())
+            println()
         }
 
         fun reInput(message: String?) {
