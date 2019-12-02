@@ -10,7 +10,7 @@ private const val POINT_LOWER_BOUND = 0
 private const val POINT_UPPER_BOUND = 2
 private const val JOINING_DELIMITER = "\n"
 
-class Board(private var turn: Piece) {
+class Board(internal var turn: Piece) {
     private val board = Array(BOARD_SIZE) { Line() }
 
     init {
