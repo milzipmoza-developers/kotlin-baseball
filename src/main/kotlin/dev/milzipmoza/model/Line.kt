@@ -2,6 +2,7 @@ package dev.milzipmoza.model
 
 import dev.milzipmoza.model.exception.PointLowerBoundException
 import dev.milzipmoza.model.exception.PointUpperBoundException
+import java.util.function.Predicate
 
 private const val JOINING_DELIMITER = ""
 private const val POINT_LOWER_BOUND = 0
@@ -22,6 +23,11 @@ class Line {
         checkLowerBound(point)
         checkUpperBound(point)
         return line[point] put piece
+    }
+
+    fun hasWinner() = when (line[0]) {
+        Square() -> false
+        else -> line.count { it == line[0] } == LINE_SIZE
     }
 
     fun symbolize() = line.asSequence().joinToString(JOINING_DELIMITER) { it.symbolize() }
